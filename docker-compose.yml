@@ -31,16 +31,16 @@ services:
     networks:
       - wod
 
-  # wod-phpmyadmin:
-  #   image: phpmyadmin/phpmyadmin:latest
-  #   restart: always
-  #   environment:
-  #     PMA_HOST: wod-db
-  #     PMA_USER: root
-  #     PMA_PASSWORD: ""
-  #   ports:
-  #     - "8081:80"
-  #   depends_on:
-  #     - wod-db
-  #   networks:
-  #     - wod
+  wod-phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    environment:
+      PMA_HOST: wod-db
+      PMA_USER: root
+      PMA_PASSWORD: "app_wod"
+    ports:
+      - "8081:80"
+    depends_on:
+      - wod-db
+    networks:
+      - wod
