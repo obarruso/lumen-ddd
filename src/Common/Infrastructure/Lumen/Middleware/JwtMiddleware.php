@@ -5,7 +5,6 @@ namespace App\Common\Infrastructure\Lumen\Middleware;
 use Closure;
 use Exception;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -37,9 +36,9 @@ class JwtMiddleware
       JWTAuth::parseToken()->authenticate();
     } catch (Exception $e) {
       if ($e instanceof TokenInvalidException || $e instanceof TokenExpiredException) {
-        return response()->json(['status' => 'Token is Invalid'], Response::HTTP_UNAUTHORIZED);
+        return response()->unauthorized(['status' => 'Token is Invalid']);
       } else {
-        return response()->json(['status' => 'Authorization Token not found'], Response::HTTP_UNAUTHORIZED);
+        return response()->unauthorized(['status' => 'Authorization Token not found']);
       }
     }
     return $next($request);

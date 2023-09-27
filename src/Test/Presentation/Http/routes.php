@@ -5,5 +5,6 @@ $router->group([
   'namespace' => 'App\Test\Presentation\Http\Controllers',
 ], function ($router) {
   $router->get('', ['uses' => 'TestAliveController']);
+  $router->get('token', ['middleware' => 'api', 'uses' => 'TestAliveController']);
   $router->get('{i}', ['uses' => 'TestAliveController']);
 });
