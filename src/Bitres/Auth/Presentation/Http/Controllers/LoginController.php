@@ -2,13 +2,12 @@
 
 namespace App\Bitres\Auth\Presentation\Http\Controllers;
 
-use App\Common\Presentation\Http\Controller;
 use App\Bitres\Auth\Domain\AuthInterface;
+use App\Common\Presentation\Http\Controller;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {

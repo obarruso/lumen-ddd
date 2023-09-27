@@ -2,12 +2,12 @@
 
 namespace App\Bitres\Auth\Application;
 
-use Illuminate\Auth\AuthenticationException;
-use Illuminate\Support\Facades\Log;
 use App\Bitres\User\Application\Mappers\UserMapper;
 use App\Bitres\User\Domain\Model\User;
 use App\Bitres\User\Infrastructure\EloquentModels\UserEloquentModel;
 use App\Bitres\Auth\Domain\AuthInterface;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Support\Facades\Log;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Facades\JWTAuth as TymonJWTAuth;
 

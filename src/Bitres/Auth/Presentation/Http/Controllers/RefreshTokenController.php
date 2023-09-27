@@ -2,8 +2,8 @@
 
 namespace App\Bitres\Auth\Presentation\Http\Controllers;
 
-use App\Common\Presentation\Http\Controller;
 use App\Bitres\Auth\Domain\AuthInterface;
+use App\Common\Presentation\Http\Controller;
 use Illuminate\Auth\AuthenticationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
