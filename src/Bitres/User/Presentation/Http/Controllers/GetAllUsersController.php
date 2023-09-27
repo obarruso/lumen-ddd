@@ -2,22 +2,22 @@
 
 namespace App\Bitres\User\Presentation\Http\Controllers;
 
+use App\Bitres\User\Application\UseCases\Queries\FindAllUsersQuery;
 use Illuminate\Support\Str;
 use App\Common\Presentation\Http\Controller;
-use App\Bitres\User\Application\UseCases\Queries\FindUserByIdQuery;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-class GetUserByIdController extends Controller
+class GetAllUsersController extends Controller
 {
-  public function __invoke($uuid = null): JsonResponse
+  public function __invoke(): JsonResponse
   {
     try {
-      $user = (new FindUserByIdQuery($uuid))->handle();
+      $users = (new FindAllUsersQuery())->handle();
       $jsonResponse = [
         'data' => [
           'control' => Str::uuid(),
-          'user' => $user
+          'users' => $users->items()
         ],
       ];
       return response()->success($jsonResponse);

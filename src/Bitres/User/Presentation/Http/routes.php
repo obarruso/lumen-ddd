@@ -1,13 +1,12 @@
 <?php
 
-use App\Bitres\User\Presentation\Http\Controllers\CreateUserController;
-use App\Bitres\User\Presentation\Http\Controllers\GetUserByIdController;
-use App\Bitres\User\Presentation\Http\Controllers\UserTestController;
-
 $router->group([
   'prefix' => 'user',
+  'namespace' => 'App\Bitres\User\Presentation\Http\Controllers',
 ], function ($router) {
-  $router->get('/fake', UserTestController::class);
-  $router->post('{uuid}', CreateUserController::class);
+  $router->get('', GetAllUsersController::class);
   $router->get('{uuid}', GetUserByIdController::class);
+  $router->post('{uuid}', CreateUserController::class);
+  $router->patch('{uuid}', UpdateUserController::class);
+  $router->delete('{uuid}', DeleteUserController::class);
 });

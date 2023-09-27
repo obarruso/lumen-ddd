@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 use App\Common\Presentation\Http\Controller;
 use App\Bitres\User\Application\Mappers\UserMapper;
 use App\Bitres\User\Application\UseCases\Commands\StoreUserCommand;
-use App\Bitres\User\Domain\Factories\UserFactory;
 use App\Bitres\User\Domain\Model\ValueObjects\Password;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Illuminate\Http\Request;
@@ -22,9 +21,17 @@ class CreateUserController extends Controller
         $password = new Password($request->input('password'), $request->input('password_confirmation'));
         $user = (new StoreUserCommand($userData, $password))->execute();
     } catch (\DomainException $domainException) {
-        return response()->json($domainException->getMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        return response()->json([
+          'error' => [
+            'message' => $domainException->getMessage()
+          ]
+        ], Response::HTTP_UNPROCESSABLE_ENTITY);
     } catch (UnauthorizedUserException $e) {
-        return response()->json($e->getMessage(), Response::HTTP_UNAUTHORIZED);
+        return response()->unauthorized([
+          'error' => [
+            'message' => $e->getMessage()
+          ]
+        ]);
     }
     
     $jsonResponse = [
