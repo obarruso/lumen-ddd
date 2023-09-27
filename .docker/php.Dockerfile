@@ -29,5 +29,5 @@ WORKDIR /var/www/app
 RUN chown -R www-data:www-data /var/www \
     && a2enmod rewrite
 
-RUN groupadd -g 1000 -r user  && useradd -r -u 1000 -g user user
-USER user
+RUN groupadd -g 1000 -r sail  && useradd -r -u 1000 -g sail sail
+USER sail
