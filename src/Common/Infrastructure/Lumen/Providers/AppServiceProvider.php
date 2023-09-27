@@ -53,5 +53,9 @@ class AppServiceProvider extends ServiceProvider
         ResponseFactory::macro('notFound', function ($message, $code = HttpResponse::HTTP_NOT_FOUND) {
             return response()->json(['error' => $message], $code);
         });
+
+        ResponseFactory::macro('forbidden', function ($message, $code = HttpResponse::HTTP_FORBIDDEN) {
+            return response()->json(['error' => $message], $code);
+        });
     }
 }

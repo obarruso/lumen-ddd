@@ -2,16 +2,17 @@
 
 namespace App\Bitres\Auth\Presentation\Http\Controllers;
 
-use App\Common\Presentation\Http\Controller;
 use App\Bitres\Auth\Domain\AuthInterface;
+use App\Common\Presentation\Http\Controller;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {
+  use WithToken;
+  
   private AuthInterface $auth;
 
   public function __construct(AuthInterface $auth)
@@ -46,21 +47,5 @@ class LoginController extends Controller
     } catch (AuthenticationException) {
       return response()->unauthorized(['error' => 'Unauthorized']);
     }
-  }
-
-  /**
-   * Get the token array structure.
-   *
-   * @param  string $token
-   *
-   * @return JsonResponse
-   */
-  protected function respondWithToken(string $token): JsonResponse
-  {
-    return response()->success([
-      'accessToken' => $token,
-      'token_type' => 'bearer',
-      'expires_in' => config('jwt.ttl') * 1,
-    ]);
   }
 }
