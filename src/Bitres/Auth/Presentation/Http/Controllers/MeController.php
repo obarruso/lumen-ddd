@@ -22,6 +22,10 @@ class MeController extends Controller
    */
   public function __invoke(): JsonResponse
   {
-    return response()->success($this->auth->me()->toArray());
+    return response()->success(
+      [
+        'data' => ['user' => $this->auth->me()->toArray()]
+      ]
+    );
   }
 }

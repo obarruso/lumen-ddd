@@ -16,9 +16,11 @@ trait WithToken
   protected function respondWithToken(string $token): JsonResponse
   {
     return response()->success([
-      'accessToken' => $token,
-      'token_type' => 'bearer',
-      'expires_in' => config('jwt.ttl') * 1,
+      'data' => [
+        'accessToken' => $token,
+        'token_type' => 'bearer',
+        'expires_in' => config('jwt.ttl') * 1,
+      ]
     ]);
   }
 }
