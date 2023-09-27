@@ -23,22 +23,11 @@ class UserMapper
         );
     }
 
-    public static function fromEloquent(UserEloquentModel $userEloquent): User
+    public static function fromEloquent(UserEloquentModel|Authenticatable $userEloquent): User
     {
         return new User(
             uuid: new Uuid($userEloquent->uuid),
             username: new UserName($userEloquent->username),
-            email: new Email($userEloquent->email),
-            is_admin: $userEloquent->is_admin,
-            is_active: $userEloquent->is_active
-        );
-    }
-
-    public static function fromAuth(Authenticatable $userEloquent): User
-    {
-        return new User(
-            uuid: new Uuid($userEloquent->uuid),
-            username: new UserName($userEloquent->name),
             email: new Email($userEloquent->email),
             is_admin: $userEloquent->is_admin,
             is_active: $userEloquent->is_active
