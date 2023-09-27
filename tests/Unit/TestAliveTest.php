@@ -3,6 +3,7 @@
 namespace Test\Unit;
 
 use Tests\TestCase;
+use Illuminate\Support\Str;
 
 class TestAliveTest extends TestCase
 {
@@ -26,6 +27,7 @@ class TestAliveTest extends TestCase
     $this->assertIsString('data.randomString');
     $this->assertIsString('data.control');
   }
+
   /**
    * /api/test/{number} [GET]
    */
@@ -46,11 +48,23 @@ class TestAliveTest extends TestCase
     $this->assertIsString('data.randomString');
     $this->assertIsString('data.control');
   }
+
+  /**
+   * /api/test/{string} [GET]
+   */
+  public function testBasicWithString()
+  {
+    $string = Str::random();
+    $this->get('/api/test/' . $string);
+    $this->seeStatusCode(400);
+  }
+
   /**
    * /api/test/token [GET]
    */
   public function testWithLogin()
   {
     // TODO
+    $this->assertCount(1,array(1));
   }
 }

@@ -12,6 +12,9 @@ class TestAliveController extends Controller
     if (!$i) {
       $i = 10;
     }
+    if (!is_numeric($i)) {
+      return response()->error(['error' => 'Not a number']);
+    }
 
     $str = Str::random($i);
     $jsonResponse = [
