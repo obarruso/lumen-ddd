@@ -25,9 +25,13 @@ class RouteServiceProvider extends ServiceProvider
     $this->app->router->group([
       'prefix' => 'api',
     ], function ($router) {
-      require base_path('src/Test/Presentation/Http/routes.php');
-      require base_path('src/Bitres/User/Presentation/Http/routes.php');
-      require base_path('src/Bitres/Auth/Presentation/Http/routes.php');
+      $router->group([
+        'prefix' => 'v1',
+      ], function ($router) {
+        require base_path('src/Test/Presentation/Http/routes.php');
+        require base_path('src/Bitres/User/Presentation/Http/routes.php');
+        require base_path('src/Bitres/Auth/Presentation/Http/routes.php');
+      });
     });
   }
 }
