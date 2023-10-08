@@ -4,17 +4,18 @@ namespace App\Bitres\User\Application\Repositories\Eloquent;
 
 use App\Bitres\User\Application\Mappers\UserMapper;
 use App\Bitres\User\Domain\Model\User;
+use App\Bitres\User\Domain\Model\UserCollection;
 use App\Bitres\User\Domain\Model\ValueObjects\Password;
 use App\Bitres\User\Domain\Repositories\UserRepositoryInterface;
 use App\Bitres\User\Infrastructure\EloquentModels\UserEloquentModel;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function findAll(): array
+    public function findAll(): UserCollection
     {
-        $users = [];
+        $users = UserCollection::createEmpty();
         foreach (UserEloquentModel::all() as $userEloquent) {
-            $users[] = UserMapper::fromEloquent($userEloquent);
+            $users->add(UserMapper::fromEloquent($userEloquent));
         }
         return $users;
     }
@@ -47,11 +48,12 @@ class UserRepository implements UserRepositoryInterface
         if ($password->isNotEmpty()) {
             $userEloquent->password = $password->value;
         }
-        $userEloquent->save();
+        $userEloquent->update();
     }
 
-    public function delete(int $user_id): void
+    public function delete(string $user_id): void
     {
+        // TODO: Convert in softdelete
         $userEloquent = UserEloquentModel::query()->findOrFail($user_id);
         $userEloquent->delete();
     }

@@ -3,11 +3,12 @@
 namespace App\Bitres\User\Domain\Repositories;
 
 use App\Bitres\User\Domain\Model\User;
+use App\Bitres\User\Domain\Model\UserCollection;
 use App\Bitres\User\Domain\Model\ValueObjects\Password;
 
 interface UserRepositoryInterface
 {
-    public function findAll(): array;
+    public function findAll(): UserCollection;
 
     public function findByUuid(string $uuid): User;
 
@@ -17,6 +18,6 @@ interface UserRepositoryInterface
 
     public function update(User $user, Password $password): void;
 
-    public function delete(int $user_id): void;
+    public function delete(string $user_id): void;
 
 }

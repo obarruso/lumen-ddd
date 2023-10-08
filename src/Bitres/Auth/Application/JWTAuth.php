@@ -31,7 +31,6 @@ class JWTAuth implements AuthInterface
 
     public function me(): User
     {
-
         return UserMapper::fromEloquent(auth()->user());
     }
 

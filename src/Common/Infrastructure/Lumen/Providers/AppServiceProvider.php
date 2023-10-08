@@ -39,6 +39,17 @@ class AppServiceProvider extends ServiceProvider
             return response()->json($data, $code);
         });
 
+        ResponseFactory::macro('accepted', function ($data, $code = HttpResponse::HTTP_ACCEPTED) {
+            if ($data instanceof \JsonSerializable) {
+                $data = $data->jsonSerialize();
+            }
+            return response()->json($data, $code);
+        });
+
+        ResponseFactory::macro('noContent', function ($code = HttpResponse::HTTP_NO_CONTENT) {
+            return response('',$code);
+        });
+
         ResponseFactory::macro('unauthorized', function ($data, $code = HttpResponse::HTTP_UNAUTHORIZED) {
             if ($data instanceof \JsonSerializable) {
                 $data = $data->jsonSerialize();
