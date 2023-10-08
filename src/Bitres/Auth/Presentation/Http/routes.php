@@ -1,10 +1,11 @@
 <?php
 
-use App\Bitres\Auth\Presentation\Http\Controllers\LoginController;
-use App\Bitres\User\Presentation\Http\Controllers\UserTestController;
-
 $router->group([
   'prefix' => 'auth',
+  'namespace' => 'App\Bitres\Auth\Presentation\Http\Controllers',
 ], function ($router) {
-    $router->post('/login', LoginController::class);
+  $router->post('login', LoginController::class);
+  $router->post('logout', LogoutController::class);
+  $router->post('refresh', RefreshTokenController::class);
+  $router->get('me', MeController::class);
 });
