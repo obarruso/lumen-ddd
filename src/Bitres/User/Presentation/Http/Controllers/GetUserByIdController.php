@@ -27,6 +27,12 @@ class GetUserByIdController extends Controller
           'message' => 'User not found' // TODO:  Create Exception
         ]
       ]);
+    } catch (\Exception $e) {
+      return response()->json([
+        'error' => [
+          'message' => 'Internal error'
+        ]
+      ], 500);
     }
   }
 }

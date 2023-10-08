@@ -7,13 +7,12 @@ use App\Bitres\User\Application\UseCases\Commands\UpdateUserCommand;
 use App\Bitres\User\Domain\Model\ValueObjects\Password;
 use App\Common\Domain\Exceptions\UnauthorizedUserException;
 use App\Common\Presentation\Http\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class UpdateUserController extends Controller
 {
-  public function __invoke(Request $request): JsonResponse
+  public function __invoke(Request $request): Response
   {
     try {
       $params = $request->all();
@@ -35,6 +34,12 @@ class UpdateUserController extends Controller
           'message' => $e->getMessage()
         ]
       ]);
+    } catch (\Exception $e) {
+      return response()->json([
+        'error' => [
+          'message' => 'Internal error'
+        ]
+      ], 500);
     }
 
     return response()->noContent();
