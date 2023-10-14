@@ -75,40 +75,37 @@ if (!function_exists('validateParameters')) {
         $errors = [];
 
         foreach ($rules as $field => $rule) {
-            // Verifica si el campo está presente en los datos
             if (!array_key_exists($field, $data)) {
                 if (strpos($rule, 'required') !== false) {
-                    $errors[$field] = "El campo '$field' es requerido.";
+                    $errors[$field] = "The field '$field' ir required";
                 }
-                continue; // Pasa al siguiente campo si no está presente
+                continue; 
             }
 
-            // Divide las reglas por coma y verifica cada una
             $fieldRules = explode('|', $rule);
             foreach ($fieldRules as $fieldRule) {
                 $parts = explode(':', $fieldRule);
                 $ruleName = $parts[0];
 
-                // Valida según la regla
                 switch ($ruleName) {
                     case 'required':
                         if (empty($data[$field])) {
-                            $errors[$field] = "El campo '$field' es requerido.";
+                            $errors[$field] = "The field '$field' ir required";
                         }
                         break;
                     case 'string':
                         if (!is_string($data[$field])) {
-                            $errors[$field] = "El campo '$field' debe ser una cadena de texto.";
+                            $errors[$field] = "The field '$field' have to by of type string";
                         }
                         break;
                     case 'numeric':
                         if (!is_numeric($data[$field])) {
-                            $errors[$field] = "El campo '$field' debe ser un valor numérico.";
+                            $errors[$field] = "The field '$field' have to by of type number";
                         }
                         break;
                     case 'email':
                         if (!filter_var($data[$field], FILTER_VALIDATE_EMAIL)) {
-                            $errors[$field] = "El campo '$field' no es una dirección de correo electrónico válida.";
+                            $errors[$field] = "The field '$field' is not valid email";
                         }
                         break;
                     default:
@@ -117,7 +114,7 @@ if (!function_exists('validateParameters')) {
             }
         }
         if (!empty($errors)) {
-            throw \Illuminate\Validation\ValidationException::withMessages($errors);
+            throw new \App\Common\Domain\Exceptions\ValidationException(null, $errors);
         }
     }
 }
