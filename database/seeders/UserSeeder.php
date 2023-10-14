@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@bitres.com',
             'is_admin' => true,
         ]), new Password('adminpolr', 'adminpolr')))->execute();
-        for( $i = 100; $i <= 120; $i++ ) {
+        for( $i = 100; $i <= 320; $i++ ) {
             $name = 'prueba' . $i;
             (new StoreUserCommand(UserFactory::new([
                 'username' => $name,
