@@ -2,11 +2,18 @@
 
 namespace Tests;
 
+use Illuminate\Testing\TestResponse;
 use Laravel\Lumen\Testing\TestCase as BaseTestCase;
-use Test\Unit\TestAliveTest;
 
 abstract class TestCase extends BaseTestCase
 {
+    use CreatesApplication, 
+    WithLogin;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+    }
     /**
      * Creates the application.
      *
@@ -14,6 +21,11 @@ abstract class TestCase extends BaseTestCase
      */
     public function createApplication()
     {
-        return require __DIR__.'/../bootstrap/app.php';
+        return require __DIR__ . '/../bootstrap/app.php';
+    }
+
+    protected function createTestResponse(): TestResponse
+    {
+        return TestResponse::fromBaseResponse($this->response);
     }
 }
